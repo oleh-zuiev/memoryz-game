@@ -50,6 +50,7 @@ const allCards = [
     },  
      
 ]
+  allCards.sort(() => 0.5 - Math.random())
 //    ------------
 const gridRef = document.querySelector('.grid');
 const resultRef = document.querySelector('#result');
@@ -64,10 +65,21 @@ function createField() {
         const card = document.createElement('img');
         card.setAttribute('src', './images/blank.png'); 
         card.setAttribute('data-id', i);
-        // card.addEventListener('click', flipCard);
+        card.addEventListener('click', flipCard);
         gridRef.appendChild(card);
     }
     
 }
 // ------------------
+const flipCard = function () {
+    let cardId = this.getAttribute('data-id');
+    cardsChosen.push(allCards[cardId].name);
+    cardsChosenId.push(cardId);
+    this.setAttribute('src', allCards[cardId].img);
+    // if (cardsChosen.length === 2) {
+    //     setTimeout(checkForMatch, 500);
+    // }
+}
+// ------------------
 createField();
+console.log(allCards);
