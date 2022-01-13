@@ -101,7 +101,7 @@ const checkForMatch = function () {
         cardsInDom[cardTwoId].removeEventListener('click', flipCard);
     }
      else {
-        // alert('try again!');
+        // alert('try again! test')
         setTimeout(
             cardsInDom[cardOneId].setAttribute('src', './images/blank.png'), 1000
         );
