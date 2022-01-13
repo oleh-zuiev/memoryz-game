@@ -57,7 +57,8 @@ const resultRef = document.querySelector('#result');
 let cardsChosen = [];
 let cardsChosenId = [];
 let cardsWon = [];
-
+console.log('cardsChosen:',cardsChosen);
+console.log('cardsChosenId:',cardsChosenId);
 // -----------------
 
 function createField() {
@@ -71,15 +72,58 @@ function createField() {
     
 }
 // ------------------
+const checkForMatch = function () {
+    const cardsInDom = document.querySelectorAll('img');
+    console.log(cardsInDom); 
+    let cardOneId = cardsChosenId[0];
+    let cardTwoId = cardsChosenId[1];
+    if ( cardOneId===cardTwoId ) {
+        alert('same card!!');
+        setTimeout(
+            cardsInDom[cardOneId].setAttribute('src', './images/blank.png'), 1000
+        );
+        setTimeout(
+            cardsInDom[cardTwoId].setAttribute('src', './images/blank.png'), 1000
+        );
+    
+        
+    }
+  
+    else if (cardsChosen[0] === cardsChosen[1]) {
+        alert('you found a pair!');
+        setTimeout(
+            cardsInDom[cardOneId].setAttribute('src', './images/white.png'), 1000
+        );
+        setTimeout(
+            cardsInDom[cardTwoId].setAttribute('src', './images/white.png'), 1000
+        );
+        cardsInDom[cardOneId].removeEventListener('click', flipCard);
+        cardsInDom[cardTwoId].removeEventListener('click', flipCard);
+    }
+     else {
+        // alert('try again!');
+        setTimeout(
+            cardsInDom[cardOneId].setAttribute('src', './images/blank.png'), 1000
+        );
+        setTimeout(
+            cardsInDom[cardTwoId].setAttribute('src', './images/blank.png'), 1000
+        );
+    }
+    cardsChosen = [];
+    cardsChosenId = [];
+}
+
+// -----------------
 const flipCard = function () {
     let cardId = this.getAttribute('data-id');
     cardsChosen.push(allCards[cardId].name);
     cardsChosenId.push(cardId);
     this.setAttribute('src', allCards[cardId].img);
-    // if (cardsChosen.length === 2) {
-    //     setTimeout(checkForMatch, 500);
-    // }
+    if (cardsChosen.length === 2) {
+        setTimeout(checkForMatch, 500);
+        
+    }
 }
 // ------------------
 createField();
-console.log(allCards);
+// console.log(allCards);
